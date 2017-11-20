@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript">
+var x=1;
+var speed=600;
+var compteur=0;
+function zero(){
+if(x==0){
+x=1;
+}
+if(x==2){
+x=0;
+compteur++;
+alert(compteur+' point');
+}
+}
+function move(){
+if(x==1){
+window.resizeTo(200,250);
+x=2;
+}
+if(x==0){
+speed-=25;
+return false;
+}
+var heig;
+var widt;
+heig= Math.floor(Math.random() * screen.height);
+widt= Math.floor(Math.random() *screen.width);
+moveTo(widt,heig);
+setTimeout("move()",speed);
+}
+</script>
+</head>
+<body onload='move()'>
+<img src='appuyez.png' onmouseover=this.src='appuyez2.png' onmouseout=this.src='appuyez.png' onclick='zero();move()'>
+</body>
+</html>
