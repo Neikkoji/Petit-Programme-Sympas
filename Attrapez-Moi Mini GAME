@@ -37,3 +37,181 @@ setTimeout("move()",speed);
 <img src='appuyez.png' onmouseover=this.src='appuyez2.png' onmouseout=this.src='appuyez.png' onclick='zero();move()'>
 </body>
 </html>
+
+--------------------------------------------------------------------------------------------------------------------------
+
+/*****************
+
+                 Rectangle ***
+                                                                    /
+
+
+
+import java.awt.*;
+
+public class RT {
+int x,y,xx,yy;
+Color c;
+
+public RT(int x,int y,int xx,int yy,Color c){
+this.x=x;
+this.y=y;
+this.xx=xx;
+this.yy=yy;
+this.c=c;
+}
+
+public RT(int xx,int yy,Color c){
+this.moving();
+this.xx=xx;
+this.yy=yy;
+this.c=c;
+}
+
+public void moving(){
+        this.x=(int)(1+Math.random()*200);
+        this.y=(int)(1+Math.random()*200);
+    }
+
+public void drow(Graphics2D g){    
+     g.setColor(this.c);
+     g.fillRect(this.x, this.y, this.xx, this.yy);    
+ }
+
+ public boolean contains(int xxx, int yyy) {
+        return xxx > x && xxx < x +xx && yyy > y && yyy < y +yyy;
+    }
+}
+
+/*******************
+
+                 Panel canva ***
+                                                                            /
+
+
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+
+public class canva extends JPanel implements MouseMotionListener, MouseListener {
+
+    RT rt;
+    java.util.List<RT> ss;
+
+    public canva() {
+        this.multy();
+        this.setBackground(Color.white);
+        this.addMouseListener(this);
+        this.addMouseMotionListener(this);
+    }
+
+    public void multy() {
+        ss = new java.util.ArrayList<RT>();
+        ss.add(new RT(50, 30, Color.red));
+        ss.add(new RT(50, 30, Color.green));
+        ss.add(new RT(50, 30, Color.BLUE));
+        ss.add(new RT(50, 30, Color.BLACK));
+        ss.add(new RT(50, 30, Color.CYAN));
+        ss.add(new RT(50, 30, Color.darkGray));
+        ss.add(new RT(50, 30, Color.magenta));
+        ss.add(new RT(50, 30, Color.LIGHT_GRAY));
+        ss.add(new RT(50, 30, Color.lightGray));
+        ss.add(new RT(50, 30, Color.pink));
+        ss.add(new RT(50, 30, new Color(122,122,112)));
+
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D s = (Graphics2D) g;
+
+        Iterator<RT> k = ss.iterator();
+
+        while (k.hasNext()) {
+            k.next().drow(s);
+        }
+
+    }
+
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    public void mouseMoved(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
+        RT temp;
+        Iterator<RT> k = ss.iterator();
+        while (k.hasNext()) {
+            temp = (RT) k.next();
+            if (temp.contains(x, y)) {
+                temp.moving();
+            }
+        }
+        this.repaint();
+    }
+
+    public void mouseClicked(MouseEvent e) {
+         int x = e.getX();
+        int y = e.getY();
+        RT temp;
+        Iterator<RT> k = ss.iterator();
+        while (k.hasNext()) {
+            temp = (RT) k.next();
+            if (temp.contains(x, y)) {
+              JOptionPane.showMessageDialog(this, "you attaque me");    
+            }
+        }
+        this.repaint();
+     
+    }
+
+    public void mousePressed(MouseEvent e) {  }
+
+    public void mouseReleased(MouseEvent e) { }
+
+    public void mouseEntered(MouseEvent e) { }
+
+    public void mouseExited(MouseEvent e) { }
+}
+
+/******************
+
+                 Main Frame ***
+                                                                        /
+
+
+
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
+import java.util.*;
+
+public class MainF extends JFrame {
+ private canva c;
+
+    public MainF(){
+       
+        this.setTitle("Attaquer moi");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocation(200,200);
+        this.setSize(300,300);
+        c=new canva();
+        
+       this.add(c);
+       } 
+    
+    
+public static void main(String[] arg){
+    new MainF().setVisible(true);
+}    
+
+}
+
+
+
+
+
